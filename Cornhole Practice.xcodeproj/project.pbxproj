@@ -1,0 +1,587 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5D39524D2D5553CB0092C755 /* Cornhole_PracticeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D39524C2D5553CB0092C755 /* Cornhole_PracticeApp.swift */; };
+		5D39524F2D5553CB0092C755 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D39524E2D5553CB0092C755 /* ContentView.swift */; };
+		5D3952512D5553CD0092C755 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D3952502D5553CD0092C755 /* Assets.xcassets */; };
+		5D3952542D5553CD0092C755 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D3952532D5553CD0092C755 /* Preview Assets.xcassets */; };
+		5D39525E2D5553CD0092C755 /* Cornhole_PracticeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D39525D2D5553CD0092C755 /* Cornhole_PracticeTests.swift */; };
+		5D3952682D5553CD0092C755 /* Cornhole_PracticeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952672D5553CD0092C755 /* Cornhole_PracticeUITests.swift */; };
+		5D39526A2D5553CD0092C755 /* Cornhole_PracticeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952692D5553CD0092C755 /* Cornhole_PracticeUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5D39525A2D5553CD0092C755 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D3952412D5553CB0092C755 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D3952482D5553CB0092C755;
+			remoteInfo = "Cornhole Practice";
+		};
+		5D3952642D5553CD0092C755 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D3952412D5553CB0092C755 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D3952482D5553CB0092C755;
+			remoteInfo = "Cornhole Practice";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5D3952492D5553CB0092C755 /* Cornhole Practice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cornhole Practice.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D39524C2D5553CB0092C755 /* Cornhole_PracticeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cornhole_PracticeApp.swift; sourceTree = "<group>"; };
+		5D39524E2D5553CB0092C755 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5D3952502D5553CD0092C755 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5D3952532D5553CD0092C755 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5D3952592D5553CD0092C755 /* Cornhole PracticeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cornhole PracticeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D39525D2D5553CD0092C755 /* Cornhole_PracticeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cornhole_PracticeTests.swift; sourceTree = "<group>"; };
+		5D3952632D5553CD0092C755 /* Cornhole PracticeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cornhole PracticeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D3952672D5553CD0092C755 /* Cornhole_PracticeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cornhole_PracticeUITests.swift; sourceTree = "<group>"; };
+		5D3952692D5553CD0092C755 /* Cornhole_PracticeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cornhole_PracticeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5D3952462D5553CB0092C755 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D3952562D5553CD0092C755 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D3952602D5553CD0092C755 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5D3952402D5553CB0092C755 = {
+			isa = PBXGroup;
+			children = (
+				5D39524B2D5553CB0092C755 /* Cornhole Practice */,
+				5D39525C2D5553CD0092C755 /* Cornhole PracticeTests */,
+				5D3952662D5553CD0092C755 /* Cornhole PracticeUITests */,
+				5D39524A2D5553CB0092C755 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5D39524A2D5553CB0092C755 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5D3952492D5553CB0092C755 /* Cornhole Practice.app */,
+				5D3952592D5553CD0092C755 /* Cornhole PracticeTests.xctest */,
+				5D3952632D5553CD0092C755 /* Cornhole PracticeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5D39524B2D5553CB0092C755 /* Cornhole Practice */ = {
+			isa = PBXGroup;
+			children = (
+				5D39524C2D5553CB0092C755 /* Cornhole_PracticeApp.swift */,
+				5D39524E2D5553CB0092C755 /* ContentView.swift */,
+				5D3952502D5553CD0092C755 /* Assets.xcassets */,
+				5D3952522D5553CD0092C755 /* Preview Content */,
+			);
+			path = "Cornhole Practice";
+			sourceTree = "<group>";
+		};
+		5D3952522D5553CD0092C755 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				5D3952532D5553CD0092C755 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5D39525C2D5553CD0092C755 /* Cornhole PracticeTests */ = {
+			isa = PBXGroup;
+			children = (
+				5D39525D2D5553CD0092C755 /* Cornhole_PracticeTests.swift */,
+			);
+			path = "Cornhole PracticeTests";
+			sourceTree = "<group>";
+		};
+		5D3952662D5553CD0092C755 /* Cornhole PracticeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5D3952672D5553CD0092C755 /* Cornhole_PracticeUITests.swift */,
+				5D3952692D5553CD0092C755 /* Cornhole_PracticeUITestsLaunchTests.swift */,
+			);
+			path = "Cornhole PracticeUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5D3952482D5553CB0092C755 /* Cornhole Practice */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D39526D2D5553CD0092C755 /* Build configuration list for PBXNativeTarget "Cornhole Practice" */;
+			buildPhases = (
+				5D3952452D5553CB0092C755 /* Sources */,
+				5D3952462D5553CB0092C755 /* Frameworks */,
+				5D3952472D5553CB0092C755 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Cornhole Practice";
+			productName = "Cornhole Practice";
+			productReference = 5D3952492D5553CB0092C755 /* Cornhole Practice.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5D3952582D5553CD0092C755 /* Cornhole PracticeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D3952702D5553CD0092C755 /* Build configuration list for PBXNativeTarget "Cornhole PracticeTests" */;
+			buildPhases = (
+				5D3952552D5553CD0092C755 /* Sources */,
+				5D3952562D5553CD0092C755 /* Frameworks */,
+				5D3952572D5553CD0092C755 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5D39525B2D5553CD0092C755 /* PBXTargetDependency */,
+			);
+			name = "Cornhole PracticeTests";
+			productName = "Cornhole PracticeTests";
+			productReference = 5D3952592D5553CD0092C755 /* Cornhole PracticeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5D3952622D5553CD0092C755 /* Cornhole PracticeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D3952732D5553CD0092C755 /* Build configuration list for PBXNativeTarget "Cornhole PracticeUITests" */;
+			buildPhases = (
+				5D39525F2D5553CD0092C755 /* Sources */,
+				5D3952602D5553CD0092C755 /* Frameworks */,
+				5D3952612D5553CD0092C755 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5D3952652D5553CD0092C755 /* PBXTargetDependency */,
+			);
+			name = "Cornhole PracticeUITests";
+			productName = "Cornhole PracticeUITests";
+			productReference = 5D3952632D5553CD0092C755 /* Cornhole PracticeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5D3952412D5553CB0092C755 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					5D3952482D5553CB0092C755 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					5D3952582D5553CD0092C755 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 5D3952482D5553CB0092C755;
+					};
+					5D3952622D5553CD0092C755 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 5D3952482D5553CB0092C755;
+					};
+				};
+			};
+			buildConfigurationList = 5D3952442D5553CB0092C755 /* Build configuration list for PBXProject "Cornhole Practice" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5D3952402D5553CB0092C755;
+			productRefGroup = 5D39524A2D5553CB0092C755 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5D3952482D5553CB0092C755 /* Cornhole Practice */,
+				5D3952582D5553CD0092C755 /* Cornhole PracticeTests */,
+				5D3952622D5553CD0092C755 /* Cornhole PracticeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5D3952472D5553CB0092C755 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D3952542D5553CD0092C755 /* Preview Assets.xcassets in Resources */,
+				5D3952512D5553CD0092C755 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D3952572D5553CD0092C755 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D3952612D5553CD0092C755 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5D3952452D5553CB0092C755 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D39524F2D5553CB0092C755 /* ContentView.swift in Sources */,
+				5D39524D2D5553CB0092C755 /* Cornhole_PracticeApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D3952552D5553CD0092C755 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D39525E2D5553CD0092C755 /* Cornhole_PracticeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D39525F2D5553CD0092C755 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D3952682D5553CD0092C755 /* Cornhole_PracticeUITests.swift in Sources */,
+				5D39526A2D5553CD0092C755 /* Cornhole_PracticeUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5D39525B2D5553CD0092C755 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5D3952482D5553CB0092C755 /* Cornhole Practice */;
+			targetProxy = 5D39525A2D5553CD0092C755 /* PBXContainerItemProxy */;
+		};
+		5D3952652D5553CD0092C755 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5D3952482D5553CB0092C755 /* Cornhole Practice */;
+			targetProxy = 5D3952642D5553CD0092C755 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5D39526B2D5553CD0092C755 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5D39526C2D5553CD0092C755 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5D39526E2D5553CD0092C755 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Cornhole Practice/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Redbob.Cornhole-Practice";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5D39526F2D5553CD0092C755 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Cornhole Practice/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Redbob.Cornhole-Practice";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5D3952712D5553CD0092C755 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Redbob.Cornhole-PracticeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cornhole Practice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cornhole Practice";
+			};
+			name = Debug;
+		};
+		5D3952722D5553CD0092C755 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Redbob.Cornhole-PracticeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cornhole Practice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cornhole Practice";
+			};
+			name = Release;
+		};
+		5D3952742D5553CD0092C755 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Redbob.Cornhole-PracticeUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Cornhole Practice";
+			};
+			name = Debug;
+		};
+		5D3952752D5553CD0092C755 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Redbob.Cornhole-PracticeUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Cornhole Practice";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5D3952442D5553CB0092C755 /* Build configuration list for PBXProject "Cornhole Practice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D39526B2D5553CD0092C755 /* Debug */,
+				5D39526C2D5553CD0092C755 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D39526D2D5553CD0092C755 /* Build configuration list for PBXNativeTarget "Cornhole Practice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D39526E2D5553CD0092C755 /* Debug */,
+				5D39526F2D5553CD0092C755 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D3952702D5553CD0092C755 /* Build configuration list for PBXNativeTarget "Cornhole PracticeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D3952712D5553CD0092C755 /* Debug */,
+				5D3952722D5553CD0092C755 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D3952732D5553CD0092C755 /* Build configuration list for PBXNativeTarget "Cornhole PracticeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D3952742D5553CD0092C755 /* Debug */,
+				5D3952752D5553CD0092C755 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5D3952412D5553CB0092C755 /* Project object */;
+}
