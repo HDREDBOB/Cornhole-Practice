@@ -7,16 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5D39524D2D5553CB0092C755 /* Cornhole_PracticeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D39524C2D5553CB0092C755 /* Cornhole_PracticeApp.swift */; };
+		5D0025BC2D57B6AB0097334C /* CornholePracticeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0025BB2D57B6AB0097334C /* CornholePracticeApp.swift */; };
+		5D0025BE2D57B6AB0097334C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0025BD2D57B6AB0097334C /* ContentView.swift */; };
+		5D0025C02D57B6AC0097334C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D0025BF2D57B6AC0097334C /* Assets.xcassets */; };
+		5D0025C32D57B6AC0097334C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D0025C22D57B6AC0097334C /* Preview Assets.xcassets */; };
+		5D0025CD2D57B6AC0097334C /* CornholePracticeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0025CC2D57B6AC0097334C /* CornholePracticeTests.swift */; };
+		5D0025D72D57B6AC0097334C /* CornholePracticeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0025D62D57B6AC0097334C /* CornholePracticeUITests.swift */; };
+		5D0025D92D57B6AC0097334C /* CornholePracticeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0025D82D57B6AC0097334C /* CornholePracticeUITestsLaunchTests.swift */; };
 		5D39524F2D5553CB0092C755 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D39524E2D5553CB0092C755 /* ContentView.swift */; };
 		5D3952512D5553CD0092C755 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D3952502D5553CD0092C755 /* Assets.xcassets */; };
 		5D3952542D5553CD0092C755 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D3952532D5553CD0092C755 /* Preview Assets.xcassets */; };
 		5D39525E2D5553CD0092C755 /* Cornhole_PracticeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D39525D2D5553CD0092C755 /* Cornhole_PracticeTests.swift */; };
 		5D3952682D5553CD0092C755 /* Cornhole_PracticeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952672D5553CD0092C755 /* Cornhole_PracticeUITests.swift */; };
 		5D39526A2D5553CD0092C755 /* Cornhole_PracticeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952692D5553CD0092C755 /* Cornhole_PracticeUITestsLaunchTests.swift */; };
+		5D3952842D565A640092C755 /* CornholePracticeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952832D565A640092C755 /* CornholePracticeApp.swift */; };
+		5D39528B2D565BC20092C755 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952852D565BC20092C755 /* PersistenceController.swift */; };
+		5D39528C2D565BC20092C755 /* SessionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952862D565BC20092C755 /* SessionHistoryView.swift */; };
+		5D39528D2D565BC20092C755 /* CornholePractice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952872D565BC20092C755 /* CornholePractice.xcdatamodeld */; };
+		5D39528E2D565BC20092C755 /* SavedPracticeSession+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952892D565BC20092C755 /* SavedPracticeSession+CoreDataClass.swift */; };
+		5D39528F2D565BC20092C755 /* SavedPracticeSession+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D39528A2D565BC20092C755 /* SavedPracticeSession+CoreDataProperties.swift */; };
+		5D3952912D565D650092C755 /* PracticeSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952902D565D650092C755 /* PracticeSessionViewModel.swift */; };
+		5D3952932D56B79C0092C755 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952922D56B79C0092C755 /* HomeView.swift */; };
+		5D3952952D56BE5F0092C755 /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952942D56BE5F0092C755 /* TrendsView.swift */; };
+		5D569A3D2D57DDD80020B92F /* BagTypesManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D569A3C2D57DDD80020B92F /* BagTypesManagementView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5D0025C92D57B6AC0097334C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D3952412D5553CB0092C755 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D0025B82D57B6AB0097334C;
+			remoteInfo = CornholePractice;
+		};
+		5D0025D32D57B6AC0097334C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D3952412D5553CB0092C755 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D0025B82D57B6AB0097334C;
+			remoteInfo = CornholePractice;
+		};
 		5D39525A2D5553CD0092C755 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5D3952412D5553CB0092C755 /* Project object */;
@@ -34,8 +64,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D0025B92D57B6AB0097334C /* CornholePractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CornholePractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D0025BB2D57B6AB0097334C /* CornholePracticeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornholePracticeApp.swift; sourceTree = "<group>"; };
+		5D0025BD2D57B6AB0097334C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5D0025BF2D57B6AC0097334C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5D0025C22D57B6AC0097334C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5D0025C82D57B6AC0097334C /* CornholePracticeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CornholePracticeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D0025CC2D57B6AC0097334C /* CornholePracticeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornholePracticeTests.swift; sourceTree = "<group>"; };
+		5D0025D22D57B6AC0097334C /* CornholePracticeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CornholePracticeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D0025D62D57B6AC0097334C /* CornholePracticeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornholePracticeUITests.swift; sourceTree = "<group>"; };
+		5D0025D82D57B6AC0097334C /* CornholePracticeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornholePracticeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5D3952492D5553CB0092C755 /* Cornhole Practice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cornhole Practice.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D39524C2D5553CB0092C755 /* Cornhole_PracticeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cornhole_PracticeApp.swift; sourceTree = "<group>"; };
 		5D39524E2D5553CB0092C755 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5D3952502D5553CD0092C755 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D3952532D5553CD0092C755 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -44,9 +83,41 @@
 		5D3952632D5553CD0092C755 /* Cornhole PracticeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cornhole PracticeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D3952672D5553CD0092C755 /* Cornhole_PracticeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cornhole_PracticeUITests.swift; sourceTree = "<group>"; };
 		5D3952692D5553CD0092C755 /* Cornhole_PracticeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cornhole_PracticeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5D3952832D565A640092C755 /* CornholePracticeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornholePracticeApp.swift; sourceTree = "<group>"; };
+		5D3952852D565BC20092C755 /* PersistenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = SOURCE_ROOT; };
+		5D3952862D565BC20092C755 /* SessionHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionHistoryView.swift; sourceTree = SOURCE_ROOT; };
+		5D3952882D565BC20092C755 /* CornholePractice.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CornholePractice.xcdatamodel; sourceTree = "<group>"; };
+		5D3952892D565BC20092C755 /* SavedPracticeSession+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SavedPracticeSession+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		5D39528A2D565BC20092C755 /* SavedPracticeSession+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SavedPracticeSession+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		5D3952902D565D650092C755 /* PracticeSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSessionViewModel.swift; sourceTree = "<group>"; };
+		5D3952922D56B79C0092C755 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		5D3952942D56BE5F0092C755 /* TrendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsView.swift; sourceTree = "<group>"; };
+		5D569A392D57D7F50020B92F /* SavedPracticeSession+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedPracticeSession+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5D569A3C2D57DDD80020B92F /* BagTypesManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagTypesManagementView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5D0025B62D57B6AB0097334C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D0025C52D57B6AC0097334C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D0025CF2D57B6AC0097334C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5D3952462D5553CB0092C755 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,12 +142,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D0025BA2D57B6AB0097334C /* CornholePractice */ = {
+			isa = PBXGroup;
+			children = (
+				5D0025BB2D57B6AB0097334C /* CornholePracticeApp.swift */,
+				5D0025BD2D57B6AB0097334C /* ContentView.swift */,
+				5D0025BF2D57B6AC0097334C /* Assets.xcassets */,
+				5D0025C12D57B6AC0097334C /* Preview Content */,
+			);
+			path = CornholePractice;
+			sourceTree = "<group>";
+		};
+		5D0025C12D57B6AC0097334C /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				5D0025C22D57B6AC0097334C /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5D0025CB2D57B6AC0097334C /* CornholePracticeTests */ = {
+			isa = PBXGroup;
+			children = (
+				5D0025CC2D57B6AC0097334C /* CornholePracticeTests.swift */,
+			);
+			path = CornholePracticeTests;
+			sourceTree = "<group>";
+		};
+		5D0025D52D57B6AC0097334C /* CornholePracticeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5D0025D62D57B6AC0097334C /* CornholePracticeUITests.swift */,
+				5D0025D82D57B6AC0097334C /* CornholePracticeUITestsLaunchTests.swift */,
+			);
+			path = CornholePracticeUITests;
+			sourceTree = "<group>";
+		};
 		5D3952402D5553CB0092C755 = {
 			isa = PBXGroup;
 			children = (
+				5D569A392D57D7F50020B92F /* SavedPracticeSession+CoreDataProperties.swift */,
 				5D39524B2D5553CB0092C755 /* Cornhole Practice */,
 				5D39525C2D5553CD0092C755 /* Cornhole PracticeTests */,
 				5D3952662D5553CD0092C755 /* Cornhole PracticeUITests */,
+				5D0025BA2D57B6AB0097334C /* CornholePractice */,
+				5D0025CB2D57B6AC0097334C /* CornholePracticeTests */,
+				5D0025D52D57B6AC0097334C /* CornholePracticeUITests */,
 				5D39524A2D5553CB0092C755 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,6 +198,9 @@
 				5D3952492D5553CB0092C755 /* Cornhole Practice.app */,
 				5D3952592D5553CD0092C755 /* Cornhole PracticeTests.xctest */,
 				5D3952632D5553CD0092C755 /* Cornhole PracticeUITests.xctest */,
+				5D0025B92D57B6AB0097334C /* CornholePractice.app */,
+				5D0025C82D57B6AC0097334C /* CornholePracticeTests.xctest */,
+				5D0025D22D57B6AC0097334C /* CornholePracticeUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,10 +208,19 @@
 		5D39524B2D5553CB0092C755 /* Cornhole Practice */ = {
 			isa = PBXGroup;
 			children = (
-				5D39524C2D5553CB0092C755 /* Cornhole_PracticeApp.swift */,
+				5D3952872D565BC20092C755 /* CornholePractice.xcdatamodeld */,
+				5D3952902D565D650092C755 /* PracticeSessionViewModel.swift */,
+				5D3952852D565BC20092C755 /* PersistenceController.swift */,
+				5D3952892D565BC20092C755 /* SavedPracticeSession+CoreDataClass.swift */,
+				5D39528A2D565BC20092C755 /* SavedPracticeSession+CoreDataProperties.swift */,
+				5D3952862D565BC20092C755 /* SessionHistoryView.swift */,
 				5D39524E2D5553CB0092C755 /* ContentView.swift */,
 				5D3952502D5553CD0092C755 /* Assets.xcassets */,
 				5D3952522D5553CD0092C755 /* Preview Content */,
+				5D3952832D565A640092C755 /* CornholePracticeApp.swift */,
+				5D3952922D56B79C0092C755 /* HomeView.swift */,
+				5D3952942D56BE5F0092C755 /* TrendsView.swift */,
+				5D569A3C2D57DDD80020B92F /* BagTypesManagementView.swift */,
 			);
 			path = "Cornhole Practice";
 			sourceTree = "<group>";
@@ -130,6 +253,59 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5D0025B82D57B6AB0097334C /* CornholePractice */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D0025E02D57B6AC0097334C /* Build configuration list for PBXNativeTarget "CornholePractice" */;
+			buildPhases = (
+				5D0025B52D57B6AB0097334C /* Sources */,
+				5D0025B62D57B6AB0097334C /* Frameworks */,
+				5D0025B72D57B6AB0097334C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CornholePractice;
+			productName = CornholePractice;
+			productReference = 5D0025B92D57B6AB0097334C /* CornholePractice.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5D0025C72D57B6AC0097334C /* CornholePracticeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D0025E12D57B6AC0097334C /* Build configuration list for PBXNativeTarget "CornholePracticeTests" */;
+			buildPhases = (
+				5D0025C42D57B6AC0097334C /* Sources */,
+				5D0025C52D57B6AC0097334C /* Frameworks */,
+				5D0025C62D57B6AC0097334C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5D0025CA2D57B6AC0097334C /* PBXTargetDependency */,
+			);
+			name = CornholePracticeTests;
+			productName = CornholePracticeTests;
+			productReference = 5D0025C82D57B6AC0097334C /* CornholePracticeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5D0025D12D57B6AC0097334C /* CornholePracticeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D0025E22D57B6AC0097334C /* Build configuration list for PBXNativeTarget "CornholePracticeUITests" */;
+			buildPhases = (
+				5D0025CE2D57B6AC0097334C /* Sources */,
+				5D0025CF2D57B6AC0097334C /* Frameworks */,
+				5D0025D02D57B6AC0097334C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5D0025D42D57B6AC0097334C /* PBXTargetDependency */,
+			);
+			name = CornholePracticeUITests;
+			productName = CornholePracticeUITests;
+			productReference = 5D0025D22D57B6AC0097334C /* CornholePracticeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		5D3952482D5553CB0092C755 /* Cornhole Practice */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5D39526D2D5553CD0092C755 /* Build configuration list for PBXNativeTarget "Cornhole Practice" */;
@@ -191,8 +367,19 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					5D0025B82D57B6AB0097334C = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					5D0025C72D57B6AC0097334C = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 5D0025B82D57B6AB0097334C;
+					};
+					5D0025D12D57B6AC0097334C = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 5D0025B82D57B6AB0097334C;
+					};
 					5D3952482D5553CB0092C755 = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -222,11 +409,37 @@
 				5D3952482D5553CB0092C755 /* Cornhole Practice */,
 				5D3952582D5553CD0092C755 /* Cornhole PracticeTests */,
 				5D3952622D5553CD0092C755 /* Cornhole PracticeUITests */,
+				5D0025B82D57B6AB0097334C /* CornholePractice */,
+				5D0025C72D57B6AC0097334C /* CornholePracticeTests */,
+				5D0025D12D57B6AC0097334C /* CornholePracticeUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5D0025B72D57B6AB0097334C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D0025C32D57B6AC0097334C /* Preview Assets.xcassets in Resources */,
+				5D0025C02D57B6AC0097334C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D0025C62D57B6AC0097334C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D0025D02D57B6AC0097334C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5D3952472D5553CB0092C755 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -253,12 +466,47 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5D0025B52D57B6AB0097334C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D0025BE2D57B6AB0097334C /* ContentView.swift in Sources */,
+				5D0025BC2D57B6AB0097334C /* CornholePracticeApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D0025C42D57B6AC0097334C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D0025CD2D57B6AC0097334C /* CornholePracticeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D0025CE2D57B6AC0097334C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D0025D72D57B6AC0097334C /* CornholePracticeUITests.swift in Sources */,
+				5D0025D92D57B6AC0097334C /* CornholePracticeUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5D3952452D5553CB0092C755 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D3952952D56BE5F0092C755 /* TrendsView.swift in Sources */,
+				5D3952932D56B79C0092C755 /* HomeView.swift in Sources */,
+				5D39528C2D565BC20092C755 /* SessionHistoryView.swift in Sources */,
 				5D39524F2D5553CB0092C755 /* ContentView.swift in Sources */,
-				5D39524D2D5553CB0092C755 /* Cornhole_PracticeApp.swift in Sources */,
+				5D3952842D565A640092C755 /* CornholePracticeApp.swift in Sources */,
+				5D39528D2D565BC20092C755 /* CornholePractice.xcdatamodeld in Sources */,
+				5D39528F2D565BC20092C755 /* SavedPracticeSession+CoreDataProperties.swift in Sources */,
+				5D39528B2D565BC20092C755 /* PersistenceController.swift in Sources */,
+				5D569A3D2D57DDD80020B92F /* BagTypesManagementView.swift in Sources */,
+				5D3952912D565D650092C755 /* PracticeSessionViewModel.swift in Sources */,
+				5D39528E2D565BC20092C755 /* SavedPracticeSession+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +530,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5D0025CA2D57B6AC0097334C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5D0025B82D57B6AB0097334C /* CornholePractice */;
+			targetProxy = 5D0025C92D57B6AC0097334C /* PBXContainerItemProxy */;
+		};
+		5D0025D42D57B6AC0097334C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5D0025B82D57B6AB0097334C /* CornholePractice */;
+			targetProxy = 5D0025D32D57B6AC0097334C /* PBXContainerItemProxy */;
+		};
 		5D39525B2D5553CD0092C755 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5D3952482D5553CB0092C755 /* Cornhole Practice */;
@@ -295,6 +553,130 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		5D0025DA2D57B6AC0097334C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CornholePractice/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Redbob.CornholePractice;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5D0025DB2D57B6AC0097334C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CornholePractice/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Redbob.CornholePractice;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5D0025DC2D57B6AC0097334C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Redbob.CornholePracticeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CornholePractice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CornholePractice";
+			};
+			name = Debug;
+		};
+		5D0025DD2D57B6AC0097334C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Redbob.CornholePracticeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CornholePractice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CornholePractice";
+			};
+			name = Release;
+		};
+		5D0025DE2D57B6AC0097334C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Redbob.CornholePracticeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CornholePractice;
+			};
+			name = Debug;
+		};
+		5D0025DF2D57B6AC0097334C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Redbob.CornholePracticeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CornholePractice;
+			};
+			name = Release;
+		};
 		5D39526B2D5553CD0092C755 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -422,6 +804,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cornhole Practice/Preview Content\"";
+				DEVELOPMENT_TEAM = D62AF26BBL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -450,6 +833,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cornhole Practice/Preview Content\"";
+				DEVELOPMENT_TEAM = D62AF26BBL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -473,7 +857,6 @@
 		5D3952712D5553CD0092C755 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -492,7 +875,6 @@
 		5D3952722D5553CD0092C755 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -511,7 +893,6 @@
 		5D3952742D5553CD0092C755 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -528,7 +909,6 @@
 		5D3952752D5553CD0092C755 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -545,6 +925,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5D0025E02D57B6AC0097334C /* Build configuration list for PBXNativeTarget "CornholePractice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D0025DA2D57B6AC0097334C /* Debug */,
+				5D0025DB2D57B6AC0097334C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D0025E12D57B6AC0097334C /* Build configuration list for PBXNativeTarget "CornholePracticeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D0025DC2D57B6AC0097334C /* Debug */,
+				5D0025DD2D57B6AC0097334C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D0025E22D57B6AC0097334C /* Build configuration list for PBXNativeTarget "CornholePracticeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D0025DE2D57B6AC0097334C /* Debug */,
+				5D0025DF2D57B6AC0097334C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5D3952442D5553CB0092C755 /* Build configuration list for PBXProject "Cornhole Practice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -582,6 +989,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5D3952872D565BC20092C755 /* CornholePractice.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5D3952882D565BC20092C755 /* CornholePractice.xcdatamodel */,
+			);
+			currentVersion = 5D3952882D565BC20092C755 /* CornholePractice.xcdatamodel */;
+			name = CornholePractice.xcdatamodeld;
+			path = "/Users/robertthompson/Cornhole/Cornhole Practice/CornholePractice.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5D3952412D5553CB0092C755 /* Project object */;
 }
