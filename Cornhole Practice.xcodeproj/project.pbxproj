@@ -30,6 +30,7 @@
 		5D3952932D56B79C0092C755 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952922D56B79C0092C755 /* HomeView.swift */; };
 		5D3952952D56BE5F0092C755 /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3952942D56BE5F0092C755 /* TrendsView.swift */; };
 		5D569A3D2D57DDD80020B92F /* BagTypesManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D569A3C2D57DDD80020B92F /* BagTypesManagementView.swift */; };
+		5D569A3F2D5834590020B92F /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D569A3E2D5834480020B92F /* UserDefaults+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		5D3952942D56BE5F0092C755 /* TrendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsView.swift; sourceTree = "<group>"; };
 		5D569A392D57D7F50020B92F /* SavedPracticeSession+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedPracticeSession+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5D569A3C2D57DDD80020B92F /* BagTypesManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagTypesManagementView.swift; sourceTree = "<group>"; };
+		5D569A3E2D5834480020B92F /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 		5D39524B2D5553CB0092C755 /* Cornhole Practice */ = {
 			isa = PBXGroup;
 			children = (
+				5D569A3E2D5834480020B92F /* UserDefaults+Extensions.swift */,
 				5D3952872D565BC20092C755 /* CornholePractice.xcdatamodeld */,
 				5D3952902D565D650092C755 /* PracticeSessionViewModel.swift */,
 				5D3952852D565BC20092C755 /* PersistenceController.swift */,
@@ -502,6 +505,7 @@
 				5D39524F2D5553CB0092C755 /* ContentView.swift in Sources */,
 				5D3952842D565A640092C755 /* CornholePracticeApp.swift in Sources */,
 				5D39528D2D565BC20092C755 /* CornholePractice.xcdatamodeld in Sources */,
+				5D569A3F2D5834590020B92F /* UserDefaults+Extensions.swift in Sources */,
 				5D39528F2D565BC20092C755 /* SavedPracticeSession+CoreDataProperties.swift in Sources */,
 				5D39528B2D565BC20092C755 /* PersistenceController.swift in Sources */,
 				5D569A3D2D57DDD80020B92F /* BagTypesManagementView.swift in Sources */,
