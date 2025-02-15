@@ -599,10 +599,9 @@ struct PPRTrendChart: View {
     private func calculatePoints(sessions: [SavedPracticeSession], in size: CGSize, spacing: CGFloat) -> [CGPoint] {
         let pprValues = sessions.map { $0.pointsPerRound }
         let maxPPR = 12.0
-        
+
         return pprValues.enumerated().map { (index, ppr) in
-            let reversedIndex = sessions.count - index - 1
-            let x = size.width * 2 - (CGFloat(reversedIndex) * spacing + 15)
+            let x = size.width * 2 - (CGFloat(index) * spacing + 15)  // Keep order correct while anchoring right
             let y = size.height - (CGFloat(min(ppr, maxPPR)) / maxPPR * size.height)
             return CGPoint(x: x, y: y)
         }
@@ -612,6 +611,8 @@ struct SessionDetailPopup: View {
     let session: SavedPracticeSession
     let position: CGPoint
     let onDismiss: () -> Void
+    
+    @Environment(\.colorScheme) var colorScheme // To detect light/dark mode
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -631,6 +632,7 @@ struct SessionDetailPopup: View {
                 DetailRow(label: "PPR", value: String(format: "%.1f", session.pointsPerRound))
                 DetailRow(label: "In Hole", value: "\(session.totalBagsInHole)")
                 DetailRow(label: "On Board", value: "\(session.bagsOnBoard)")
+                DetailRow(label: "Off Board", value: "\(session.bagsOffBoard)")
                 DetailRow(label: "4 Baggers", value: "\(session.fourBaggers)")
                 if let date = session.date {
                     DetailRow(label: "Date", value: {
@@ -642,7 +644,7 @@ struct SessionDetailPopup: View {
             }
         }
         .padding()
-        .background(Color.white)
+        .background(colorScheme == .dark ? Color(UIColor.systemGray6) : Color.white) // Adaptive background
         .cornerRadius(12)
         .shadow(radius: 10)
         .frame(width: 200)
@@ -650,10 +652,11 @@ struct SessionDetailPopup: View {
         .transition(.scale.combined(with: .opacity))
     }
 }
-
 struct DetailRow: View {
     let label: String
     let value: String
+    
+    @Environment(\.colorScheme) var colorScheme // To detect light/dark mode
     
     var body: some View {
         HStack {
@@ -662,6 +665,7 @@ struct DetailRow: View {
             Spacer()
             Text(value)
                 .bold()
+                .foregroundColor(colorScheme == .dark ? .white : .black) // Ensure visibility
         }
         .font(.subheadline)
     }

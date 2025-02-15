@@ -69,7 +69,7 @@ struct BagComparisonView: View {
         
         let avgPPR = sessions.reduce(0.0) { $0 + $1.pointsPerRound } / totalSessions
         
-        let fourBaggerRate = sessions.reduce(0) { $0 + $1.fourBaggers } / Int16(totalSessions)
+        let fourBaggerRate = Double(sessions.reduce(0) { $0 + $1.fourBaggers }) / totalSessions
         
         let totalBags = sessions.reduce(0) { $0 + $1.totalBagsInHole + $1.bagsOnBoard + $1.bagsOffBoard }
         let inHoleBags = sessions.reduce(0) { $0 + $1.totalBagsInHole }
