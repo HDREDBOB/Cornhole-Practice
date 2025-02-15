@@ -8,6 +8,7 @@
         <attribute name="fourBaggers" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="iD" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="pointsPerRound" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="throwingStyle" attributeType="String" defaultValueString="Default"/>
         <attribute name="totalBagsInHole" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
 </model>

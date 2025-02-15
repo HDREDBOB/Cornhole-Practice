@@ -2,13 +2,38 @@
 import SwiftUI
 
 
+// Constants to centralize configuration
+enum AppConstants {
+    enum UserDefaultsKeys {
+        static let bagTypes = "CornholeBagTypes"
+        static let defaultBagType = "DefaultBagType"
+    }
+}
+
+// Custom View Modifiers
+struct BlueSoftBackground: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .background(Color.blue.opacity(0.1))
+            .cornerRadius(10)
+    }
+}
+
+extension View {
+    func blueSoftBackground() -> some View {
+        modifier(BlueSoftBackground())
+    }
+}
+
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @StateObject private var viewModel: PracticeSessionViewModel
-    @State private var selectedBagType: String? = UserDefaults.standard.lastSelectedBagType
+    @State private var selectedBagType: String = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultBagType) ?? ""
+    @State private var toolbarRefresh: Bool = false
     
     private var bagTypes: [String] {
-        UserDefaults.standard.stringArray(forKey: "CornholeBagTypes") ?? []
+        UserDefaults.standard.stringArray(forKey: AppConstants.UserDefaultsKeys.bagTypes) ?? []
     }
     
     init() {
@@ -18,127 +43,185 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            if viewModel.sessionState == .ready {
-                // New Session View
-                VStack(spacing: 20) {
-                    Text("Ready to Practice?")
-                        .font(.title)
-                        .fontWeight(.bold)
-                    
-                    // Bag Type Picker
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Default Bag:")
-                            .font(.headline)
-                        
-                        Picker("Default Bag", selection: $selectedBagType) {
-                            Text(UserDefaults.standard.string(forKey: "DefaultBagType") ?? "No Default Bag")
-                                .tag(UserDefaults.standard.string(forKey: "DefaultBagType"))
-                            
-                            ForEach(bagTypes, id: \.self) { bagType in
-                                Text(bagType).tag(bagType)
-                            }
-                        }
-                        .pickerStyle(MenuPickerStyle())
-                        .padding(.vertical, 8)
-                        .onChange(of: selectedBagType) { _, newValue in
-                            // Update the default bag type in UserDefaults when selection changes
-                            UserDefaults.standard.set(newValue, forKey: "DefaultBagType")
-                        }
-                        .onAppear {
-                            selectedBagType = UserDefaults.standard.string(forKey: "DefaultBagType")
-                        }
-                    }
-                    .padding()
-                    .background(Color.blue.opacity(0.1))
-                    .cornerRadius(10)
-                    
-                    Button(action: {
-                        if let bagType = selectedBagType {
-                            UserDefaults.standard.lastSelectedBagType = bagType
-                            viewModel.setupNewSession()  // Only setup new session, don't save
-                        }
-                    }) {
-                        HStack {
-                            Image(systemName: "plus.circle.fill")
-                            Text("Start New Session")
-                        }
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(selectedBagType == nil ? Color.gray : Color.blue)
-                        .cornerRadius(10)
-                    }
-                    .disabled(selectedBagType == nil)
+            switch viewModel.sessionState {
+            case .ready:
+                readySessionView
+            case .inProgress:
+                if viewModel.currentRound > 10 {
+                    finalReviewView
+                        .navigationTitle("Session Summary")
+                } else {
+                    inProgressSessionView
                 }
-            } else {
-                    // Active or Completed Session View
-                    VStack(spacing: 20) {
-                        // PPR Display
-                        PPRCard(ppr: viewModel.currentPPR)
-                        
-                        if viewModel.sessionState == .inProgress {
-                            // Current Round Display
-                            RoundTracker(
-                                currentRound: viewModel.currentRound,
-                                currentThrow: viewModel.currentThrow,
-                                onThrow: viewModel.recordThrow,
-                                onUndo: viewModel.undoLastThrow    // Add this line
-                            )
-                        }
-                        
-                        // Rounds Summary
-                        RoundsSummary(rounds: viewModel.rounds)
-                        
-                        // Session Complete Actions
-                        // Session Complete Actions
-                        if viewModel.sessionState == .completed {
-                            SessionCompleteButtons(
-                                onSave: { _ in viewModel.saveSession(bagType: selectedBagType ?? "") },
-                                onDiscard: { viewModel.setupNewSession() },
-                                bagType: selectedBagType ?? ""
-                            )
-                        }
-                                                
-                        Spacer()
-                                            } // Close VStack
-                                        } // Close else
-                                    } // Close outer VStack
-                                    .padding()
-                                    .navigationTitle("Practice Session")
-                                    .toolbar {
-                                        ToolbarItem(placement: .principal) {
-                                            VStack(spacing: 4) {
-                                                Text("Practice Session")
-                                                    .font(.headline)
-                                                
-                                                Text(UserDefaults.standard.string(forKey: "DefaultBagType") ?? "No Default Bag")
-                                                    .font(.subheadline)
-                                                    .fontWeight(.semibold)
-                                                    .foregroundColor(.blue)
-                                                    .padding(4)
-                                                    .background(Color.blue.opacity(0.1))
-                                                    .cornerRadius(5)
-                                            }
-                                        }
-                                    }
-                            } // Close body
-                        } // Close ContentView
+            case .completed:
+                completedSessionView
+            }
+        }
+        .padding()
+        .navigationTitle(viewModel.currentRound > 10 ? "Session Summary" : "Practice Session")
+        .toolbar { sessionToolbar }
+    }
+    private var finalReviewView: some View {
+        VStack(spacing: 20) {
+            PPRCard(ppr: viewModel.currentPPR)
+            RoundsSummary(rounds: viewModel.rounds)
+            
+            HStack(spacing: 20) {
+                Button(action: { viewModel.undoLastThrow() }) {
+                    HStack {
+                        Image(systemName: "arrow.uturn.backward")
+                        Text("Undo")
+                    }
+                }
+                
+                Button(action: { viewModel.saveSession(bagType: defaultBagType) }) {
+                    HStack {
+                        Image(systemName: "square.and.arrow.down")
+                        Text("Save")
+                    }
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                }
+                
+                Button(action: { viewModel.setupNewSession() }) {
+                    HStack {
+                        Image(systemName: "trash")
+                        Text("Discard")
+                    }
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.red)
+                    .cornerRadius(10)
+                }
+            }
+        }
+    }
 
-                        struct PPRCard: View {
-                            let ppr: Double
-                            
-                            var body: some View {
-                                VStack {
-                                    Text("Points Per Round (PPR)")
-                                        .font(.headline)
-                                    Text(String(format: "%.2f", ppr))
-                                        .font(.system(size: 36, weight: .bold))
-                                        .foregroundColor(.blue)
-                                }
-                                .padding()
-                                .background(Color.blue.opacity(0.1))
-                                .cornerRadius(10)
-                            }
-                        }
+    private var readySessionView: some View {
+        VStack(spacing: 20) {
+            Text("Ready to Practice?")
+                .font(.title)
+                .fontWeight(.bold)
+            
+            bagSelectionView
+            
+            startSessionButton
+        }
+    }
+    
+    private var bagSelectionView: some View {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Default Bag:")
+                    .font(.headline)
+                
+                Picker("Default Bag", selection: $selectedBagType) {
+                    ForEach(bagTypes, id: \.self) { bagType in
+                        Text(bagType).tag(bagType)
+                    }
+                }
+                .onChange(of: selectedBagType) { oldValue, newValue in
+                    UserDefaults.standard.set(newValue, forKey: AppConstants.UserDefaultsKeys.defaultBagType)
+                    toolbarRefresh.toggle()  // Add this line
+                }
+                .pickerStyle(MenuPickerStyle())
+                .padding(.vertical, 8)
+            }
+            .blueSoftBackground()
+            .onAppear {
+                selectedBagType = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultBagType) ?? ""
+            }
+        }
+    
+    private var startSessionButton: some View {
+        Button(action: {
+            viewModel.setupNewSession()
+        }) {
+            HStack {
+                Image(systemName: "plus.circle.fill")
+                Text("Start New Session")
+            }
+            .foregroundColor(.white)
+            .padding()
+            .background(defaultBagSelected ? Color.blue : Color.gray)
+            .cornerRadius(10)
+        }
+        .disabled(!defaultBagSelected)
+    }
+    
+    private var defaultBagSelected: Bool {
+        UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultBagType) != nil
+    }
+    
+    private var inProgressSessionView: some View {
+        VStack(spacing: 20) {
+            PPRCard(ppr: viewModel.currentPPR)
+            
+            RoundTracker(
+                currentRound: viewModel.currentRound,
+                currentThrow: viewModel.currentThrow,
+                onThrow: viewModel.recordThrow,
+                onUndo: viewModel.undoLastThrow
+            )
+            
+            RoundsSummary(rounds: viewModel.rounds)
+            
+            Spacer()
+        }
+    }
+    
+    private var completedSessionView: some View {
+        SessionCompleteButtons(
+            onSave: { bagType in
+                viewModel.saveSession(bagType: defaultBagType)
+            },
+            onDiscard: { viewModel.setupNewSession() },
+            bagType: defaultBagType
+        )
+    }
+    
+    private var defaultBagType: String {
+        UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultBagType) ?? "No Default Bags Selected"
+    }
+    
+    private var sessionToolbar: some ToolbarContent {
+            ToolbarItem(placement: .principal) {
+                VStack(spacing: 4) {
+                    Text(viewModel.currentRound > 10 ? "Session Summary" : "Practice Session")
+                        .font(.headline)
+                    
+                    Text(defaultBagType)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.blue)
+                        .padding(4)
+                        .background(Color.blue.opacity(0.1))
+                        .cornerRadius(5)
+                }
+                .id(toolbarRefresh)  // Add this line
+            }
+        }
+    }
+
+// Existing other structs (PPRCard, RoundTracker, etc.) remain the same
+
+struct PPRCard: View {
+    let ppr: Double
+    
+    var body: some View {
+        VStack {
+            Text("Points Per Round (PPR)")
+                .font(.headline)
+            Text(String(format: "%.2f", ppr))
+                .font(.system(size: 36, weight: .bold))
+                .foregroundColor(.blue)
+        }
+        .padding()
+        .background(Color.blue.opacity(0.1))
+        .cornerRadius(10)
+    }
+}
 
 struct RoundTracker: View {
     let currentRound: Int

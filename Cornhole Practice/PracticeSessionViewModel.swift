@@ -13,22 +13,24 @@ class PracticeSessionViewModel: ObservableObject {
     @Published var currentThrow = 1
     @Published var sessionState: SessionState = .inProgress
     @Published var throwHistory: [(round: Int, throwNumber: Int, result: ThrowResult)] = []
+    @Published var defaultBagType: String // Added this to store the default bag type
     
     let viewContext: NSManagedObjectContext
     
     init(context: NSManagedObjectContext) {
         self.viewContext = context
+        self.defaultBagType = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultBagType) ?? "Default"
         setupNewSession()
     }
     
     var isSessionComplete: Bool { currentRound > 10 }
     
     var currentPPR: Double {
-        let completedRounds = rounds.filter { $0.bagThrows.count == 4 }
-        guard !completedRounds.isEmpty else { return 0 }
-        let totalPoints = completedRounds.reduce(0) { $0 + $1.roundScore }
-        return Double(totalPoints) / Double(completedRounds.count)
-    }
+         let completedRounds = rounds.filter { $0.bagThrows.count == 4 }
+         guard !completedRounds.isEmpty else { return 0 }
+         let totalPoints = completedRounds.reduce(0) { $0 + $1.roundScore }
+         return Double(totalPoints) / Double(completedRounds.count)
+     }
     
     func setupNewSession() {
         rounds = (1...10).map { Round(id: UUID(), roundNumber: $0, bagThrows: []) }
@@ -42,7 +44,7 @@ class PracticeSessionViewModel: ObservableObject {
         
         // Record the current state before making changes
         throwHistory.append((round: currentRound, throwNumber: currentThrow, result: result))
-        
+            
         let bagThrow = BagThrow(id: UUID(), throwNumber: currentThrow, result: result)
         rounds[currentRound - 1].bagThrows.append(bagThrow)
         
@@ -51,7 +53,7 @@ class PracticeSessionViewModel: ObservableObject {
             currentRound += 1
             
             if currentRound > 10 {
-                sessionState = .completed
+                sessionState = .inProgress
             }
         } else {
             currentThrow += 1
@@ -73,7 +75,6 @@ class PracticeSessionViewModel: ObservableObject {
         currentRound = lastThrow.round
         currentThrow = lastThrow.throwNumber
         
-        // If we were in completed state, go back to in progress
         if sessionState == .completed {
             sessionState = .inProgress
         }
@@ -90,8 +91,8 @@ class PracticeSessionViewModel: ObservableObject {
         savedSession.bagsOnBoard = Int16(rounds.reduce(0) { $0 + $1.totalOnBoard })
         savedSession.bagsOffBoard = Int16(rounds.reduce(0) { $0 + $1.totalMiss })
         savedSession.bagType = bagType
+        print("Saving session with bag type: \(bagType)")
         
-        // Count rounds where ALL 4 throws are in the hole
         let fourBaggerRounds = rounds.filter { round in
             round.bagThrows.count == 4 && round.bagThrows.allSatisfy { $0.result == .inHole }
         }
@@ -105,5 +106,9 @@ class PracticeSessionViewModel: ObservableObject {
         }
         
         sessionState = .ready
+    }
+    
+    func finalizeSession() {
+        sessionState = .completed
     }
 }

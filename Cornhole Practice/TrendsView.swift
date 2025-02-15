@@ -1,29 +1,24 @@
 import SwiftUI
 import CoreData
 
-struct Achievement {
-    let id: String
-    let title: String
-    let description: String
-    let icon: String
-    var isUnlocked: Bool
-    let progress: Double
-}
 
-enum AchievementType {
-    case practiceStreak(days: Int)
-    case totalSessions(count: Int)
-    case fourBaggers(count: Int)
-    case pprMilestone(score: Double)
-    case inHolePercentage(percent: Double)
-}
+
 
 struct TrendsView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \SavedPracticeSession.date, ascending: true)],
-        animation: .default)
-    private var sessions: FetchedResults<SavedPracticeSession>
+    @FetchRequest private var sessions: FetchedResults<SavedPracticeSession>
+    
+    // Pagination state
+    @State private var currentPage = 0
+    @State private var isLoading = false
+    
+    init() {
+        let request = NSFetchRequest<SavedPracticeSession>(entityName: "SavedPracticeSession")
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \SavedPracticeSession.date, ascending: false)]
+        request.fetchLimit = 100
+        
+        _sessions = FetchRequest(fetchRequest: request, animation: .default)
+    }
     
     // MARK: - Performance Calculation Methods
     
@@ -56,7 +51,6 @@ struct TrendsView: View {
         let weightedSum = sessions.enumerated().reduce(0.0) { (result, enumerated) in
             let (index, session) = enumerated
             let weight = Double(index + 1) / Double(sessions.count)
-            // Replace .intValue with Int(truncating:)
             return result + (Double(truncating: session[keyPath: keyPath] as! NSNumber) * weight)
         }
         
@@ -114,16 +108,83 @@ struct TrendsView: View {
                     )
                     
                     PPRTrendChart(sessions: Array(sessions))
+                   
+                    BagPlacementChart(sessions: Array(sessions))
+                       
                     
+                    
+                    //BagPlacementTestChart(sessions: Array(sessions))
                     DetailedInsightsCard(sessions: Array(sessions))
+                    
+                    // Load More Button
+                    if sessions.count >= (currentPage + 1) * 100 {
+                        loadMoreButton
+                    }
                 }
                 .padding()
             }
             .navigationTitle("Practice Trends")
+            .refreshable {
+                await refreshSessions()
+            }
+        }
+    }
+    
+    private var loadMoreButton: some View {
+        Button(action: loadMoreSessions) {
+            HStack {
+                if isLoading {
+                    ProgressView()
+                } else {
+                    Text("Load More Sessions")
+                    Image(systemName: "arrow.down")
+                }
+            }
+            .padding()
+            .background(Color.blue.opacity(0.1))
+            .cornerRadius(10)
+        }
+        .disabled(isLoading)
+    }
+    
+    private func loadMoreSessions() {
+        guard !isLoading else { return }
+        
+        isLoading = true
+        currentPage += 1
+        
+        // Modify fetch request to load next batch
+        let request: NSFetchRequest<SavedPracticeSession> = SavedPracticeSession.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \SavedPracticeSession.date, ascending: false)]
+        request.fetchLimit = 100
+        request.fetchOffset = currentPage * 100
+        
+        do {
+            // This will automatically update the @FetchRequest
+            _ = try viewContext.fetch(request)
+            isLoading = false
+        } catch {
+            print("Failed to load more sessions: \(error)")
+            isLoading = false
+        }
+    }
+    
+    private func refreshSessions() async {
+        // Reset to first page
+        currentPage = 0
+        
+        let request: NSFetchRequest<SavedPracticeSession> = SavedPracticeSession.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \SavedPracticeSession.date, ascending: false)]
+        request.fetchLimit = 100
+        
+        do {
+            // This will automatically update the @FetchRequest
+            _ = try viewContext.fetch(request)
+        } catch {
+            print("Failed to refresh sessions: \(error)")
         }
     }
 }
-
 struct PerformanceSummaryCard: View {
     let totalSessions: Int
     let averagePPR: Double
@@ -212,7 +273,7 @@ struct StatBox: View {
         }
         .frame(maxWidth: .infinity)
         .padding()
-        .background(Color.white)
+        .background(Color(UIColor.systemBackground))
         .cornerRadius(8)
         .onAppear {
             animate = true
@@ -397,125 +458,156 @@ struct PPRTrendChart: View {
     let sessions: [SavedPracticeSession]
     @State private var selectedSession: SavedPracticeSession?
     @State private var showingDetail = false
-    @State private var detailPosition: CGPoint = .zero
-    
-    private var bestPPR: Double {
-        sessions.map(\.pointsPerRound).max() ?? 0
-    }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .center, spacing: 10) {
             Text("🔥 PPR Trend")
                 .font(.title2)
                 .bold()
                 .foregroundColor(.blue)
-                .padding(.horizontal)
             
             GeometryReader { geometry in
-                let points = calculatePoints(in: geometry.size)
-                
-                ZStack {
-                    // Background Grid Lines
-                    VStack(spacing: geometry.size.height / 4) {
-                        ForEach(0..<4) { _ in
-                            Divider()
-                                .background(Color.gray.opacity(0.2))
+                ScrollView(.horizontal, showsIndicators: false) {
+                    ScrollViewReader { scrollProxy in
+                        ZStack(alignment: .leading) {
+                            drawGrid(in: geometry.size)
+                            drawChartWithLabels(sessions: sessions, in: geometry.size)
                         }
-                    }
-                    
-                    if points.count > 1 {
-                        // Gradient Line Path
-                        Path { path in
-                            path.move(to: points[0])
-                            for point in points.dropFirst() {
-                                path.addLine(to: point)
+                        .frame(width: geometry.size.width * 2)
+                        .onAppear {
+                            withAnimation {
+                                scrollProxy.scrollTo(sessions.count - 1, anchor: .trailing)
                             }
-                        }
-                        .strokedPath(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
-                        .fill(LinearGradient(
-                            gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.8)]),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        ))
-                        
-                        // Best PPR Label
-                        if let maxPPR = sessions.map({ $0.pointsPerRound }).max() {
-                            let maxY = geometry.size.height - (CGFloat(maxPPR) / CGFloat(maxPPR + 2.0) * geometry.size.height)
-                            
-                            HStack {
-                                Text("Best PPR: \(String(format: "%.1f", maxPPR))")
-                                    .font(.caption)
-                                    .foregroundColor(.green)
-                                    .padding(.horizontal, 6)
-                                    .padding(.vertical, 2)
-                                    .background(Color.green.opacity(0.1))
-                                    .cornerRadius(4)
-                            }
-                            .offset(y: -20)
-                            .position(x: geometry.size.width / 2, y: maxY)
-                        }
-                        
-                        // Interactive Points
-                        ForEach(Array(zip(sessions.indices, points)), id: \.0) { index, point in
-                            Circle()
-                                .fill(sessions[index] == selectedSession ? Color.purple : Color.blue)
-                                .frame(width: 12, height: 12)
-                                .shadow(color: Color.blue.opacity(0.6), radius: 4, x: 0, y: 2)
-                                .overlay(
-                                    Circle()
-                                        .stroke(Color.white, lineWidth: 2)
-                                )
-                                .position(point)
-                                .onTapGesture {
-                                    withAnimation(.spring()) {
-                                        selectedSession = sessions[index]
-                                        detailPosition = point
-                                        showingDetail = true
-                                    }
-                                }
-                        }
-                        
-                        // Session Detail Popup
-                        if showingDetail, let session = selectedSession {
-                            SessionDetailPopup(
-                                session: session,
-                                position: CGPoint(x: geometry.size.width/2, y: geometry.size.height/2),
-                                onDismiss: {
-                                    withAnimation(.spring()) {
-                                        showingDetail = false
-                                        selectedSession = nil
-                                    }
-                                }
-                            )
                         }
                     }
                 }
+                .background(Color.black.opacity(0.05))
+                .overlay {
+                    if showingDetail, let session = selectedSession {
+                        SessionDetailPopup(
+                            session: session,
+                            position: CGPoint(x: geometry.size.width/2, y: geometry.size.height/2),
+                            onDismiss: {
+                                withAnimation(.spring()) {
+                                    showingDetail = false
+                                    selectedSession = nil
+                                }
+                            }
+                        )
+                    }
+                }
             }
-            .frame(height: 250)  // Increased height to accommodate popup
-            .background(Color.black.opacity(0.05))
-            .cornerRadius(12)
-            .padding(.horizontal)
+            .frame(height: 250)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.black.opacity(0.15), lineWidth: 1)
+                    .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 2)
+            )
         }
         .padding()
         .background(.ultraThinMaterial)
         .cornerRadius(15)
         .shadow(radius: 10)
     }
+
     
-    private func calculatePoints(in size: CGSize) -> [CGPoint] {
-        let pprValues = sessions.map { $0.pointsPerRound }
-        guard !pprValues.isEmpty else { return [] }
+    private func drawGrid(in size: CGSize) -> some View {
+        let yPositions = [0, 2, 4, 6, 8, 10, 12].map { CGFloat($0) / 12.0 * size.height }
         
-        let maxPPR = (pprValues.max() ?? 12.0) + 2.0
+        return ZStack {
+            ForEach(yPositions, id: \.self) { y in
+                Rectangle()
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(width: size.width * 2, height: 1)
+                    .position(x: size.width, y: size.height - y)
+            }
+        }
+    }
+    
+
+    
+    private func drawChartWithLabels(sessions: [SavedPracticeSession], in size: CGSize) -> some View { // New function
+        let points = calculatePoints(sessions: sessions, in: size, spacing: 30)
+        
+        if points.count > 1 {
+            return AnyView(
+                ZStack {
+                    // 1️⃣ Draw the trend line first (keeps it in the background)
+                    Path { path in
+                        path.move(to: points[0])
+                        for point in points.dropFirst() {
+                            path.addLine(to: point)
+                        }
+                    }
+                    .strokedPath(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                    .fill(LinearGradient(
+                        gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.8)]),
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    ))
+
+                    // 2️⃣ Render the tap circles LAST so they are on top
+                    ForEach(Array(zip(sessions.indices, points)), id: \.0) { index, point in
+                        Circle()
+                            .fill(sessions[index] == selectedSession ? Color.purple : Color.blue)
+                            .frame(width: 12, height: 12)
+                            .position(point)
+                        // Always show the PPR value above the point
+                        Text(String(format: "%.1f", sessions[index].pointsPerRound))
+                            .font(.caption2)
+                            .foregroundColor(.blue)
+                            .offset(y: -15)
+                            .position(point)
+
+                        // 🔥 Make the tappable area larger & ensure taps register
+                        Circle()
+                            .fill(Color.clear)
+                            .frame(width: 30, height: 30)  // 👈 Increased size
+                            .contentShape(Rectangle())     // 👈 Ensures entire area is tappable
+                            .position(point)
+                            .onTapGesture {
+                               
+                                withAnimation(.spring()) {
+                                    selectedSession = sessions[index]
+                                    showingDetail = true
+                                }
+                            }
+                            .id(index)
+                    }
+
+                    // 3️⃣ Popup for the selected session (only shows when tapped)
+                    if showingDetail, let session = selectedSession {
+                        SessionDetailPopup(
+                            session: session,
+                            position: CGPoint(x: size.width / 2, y: size.height / 2),
+                            onDismiss: {
+                                withAnimation(.spring()) {
+                                    showingDetail = false
+                                    selectedSession = nil
+                                }
+                            }
+                        )
+                    }
+                }
+
+            )
+        }
+        return AnyView(EmptyView())
+    }
+    
+    private func calculatePoints(sessions: [SavedPracticeSession], in size: CGSize, spacing: CGFloat) -> [CGPoint] {
+        let pprValues = sessions.map { $0.pointsPerRound }
+        let maxPPR = 12.0
         
         return pprValues.enumerated().map { (index, ppr) in
-            let x = CGFloat(index) * (size.width / CGFloat(max(1, pprValues.count - 1)))
-            let y = size.height - (CGFloat(ppr) / CGFloat(maxPPR) * size.height)
+            let reversedIndex = sessions.count - index - 1
+            let x = size.width * 2 - (CGFloat(reversedIndex) * spacing + 15)
+            let y = size.height - (CGFloat(min(ppr, maxPPR)) / maxPPR * size.height)
             return CGPoint(x: x, y: y)
         }
     }
 }
-
 struct SessionDetailPopup: View {
     let session: SavedPracticeSession
     let position: CGPoint
@@ -572,5 +664,232 @@ struct DetailRow: View {
                 .bold()
         }
         .font(.subheadline)
+    }
+}
+
+struct BagPlacementChart: View {
+    let sessions: [SavedPracticeSession]
+    @State private var selectedSession: SavedPracticeSession?
+    @State private var showingDetail = false
+    @State private var selectedLine: Color? = nil
+    
+    private let inHoleColor = Color.green
+    private let onBoardColor = Color.blue
+    private let offBoardColor = Color.red
+    
+    var body: some View {
+        VStack(alignment: .center, spacing: 4) {
+            Text("📊 Bag Placement Trends")
+                .font(.title2)
+                .bold()
+                .foregroundColor(.blue)
+            
+            HStack(spacing: 16) {
+                ChartLegendItem(color: inHoleColor, label: "In Hole")
+                ChartLegendItem(color: onBoardColor, label: "On Board")
+                ChartLegendItem(color: offBoardColor, label: "Off Board")
+            }
+            
+            GeometryReader { geometry in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    ScrollViewReader { scrollProxy in
+                        ZStack(alignment: .leading) {
+                            drawGrid(in: geometry.size)
+                            drawBagPlacementChart(sessions: sessions, in: geometry.size)
+                        }
+                        .frame(width: geometry.size.width * 2)
+                        .onAppear {
+                            withAnimation {
+                                scrollProxy.scrollTo(sessions.count - 1, anchor: .trailing)
+                            }
+                        }
+                    }
+                }
+                .background(Color.black.opacity(0.05))
+            }
+            .frame(height: 250)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.black.opacity(0.15), lineWidth: 1)
+                    .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 2)
+            )
+        }
+        .padding()
+        .background(.ultraThinMaterial)
+        .cornerRadius(15)
+        .shadow(radius: 10)
+    }
+    
+    private func drawGrid(in size: CGSize) -> some View {
+        let yPositions = [0, 25, 50, 75, 100].map { CGFloat($0) / 100.0 * size.height }
+        
+        return ZStack {
+            ForEach(yPositions, id: \.self) { y in
+                Rectangle()
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(width: size.width * 2, height: 1)
+                    .position(x: size.width, y: size.height - y)
+            }
+        }
+    }
+    
+    private func drawBagPlacementChart(sessions: [SavedPracticeSession], in size: CGSize) -> some View {
+        let reversedSessions = Array(sessions.reversed())
+        
+        let inHolePoints = calculatePoints(for: { session in
+            let total = Double(session.totalBagsInHole + session.bagsOnBoard + session.bagsOffBoard)
+            return total > 0 ? Double(session.totalBagsInHole) / total * 100 : 0
+        }, sessions: reversedSessions, in: size, spacing: 30)
+        
+        let onBoardPoints = calculatePoints(for: { session in
+            let total = Double(session.totalBagsInHole + session.bagsOnBoard + session.bagsOffBoard)
+            return total > 0 ? Double(session.bagsOnBoard) / total * 100 : 0
+        }, sessions: reversedSessions, in: size, spacing: 30)
+        
+        let offBoardPoints = calculatePoints(for: { session in
+            let total = Double(session.totalBagsInHole + session.bagsOnBoard + session.bagsOffBoard)
+            return total > 0 ? Double(session.bagsOffBoard) / total * 100 : 0
+        }, sessions: reversedSessions, in: size, spacing: 30)
+        
+        return AnyView(
+            ZStack {
+                PathLine(points: inHolePoints, color: inHoleColor, isSelected: selectedLine == inHoleColor, onSelect: { selectedLine = inHoleColor })
+                PathLine(points: onBoardPoints, color: onBoardColor, isSelected: selectedLine == onBoardColor, onSelect: { selectedLine = onBoardColor })
+                PathLine(points: offBoardPoints, color: offBoardColor, isSelected: selectedLine == offBoardColor, onSelect: { selectedLine = offBoardColor })
+                
+                ForEach(Array(reversedSessions.indices), id: \.self) { index in
+                    Circle()
+                        .fill(Color.clear)
+                        .frame(width: 20, height: 20)
+                        .position(inHolePoints[index])
+                        .onTapGesture {
+                            selectedSession = reversedSessions[index]
+                            showingDetail = true
+                        }
+                        .id(index)
+                }
+                
+                if showingDetail, let session = selectedSession {
+                    BagPlacementDetailPopup(
+                        session: session,
+                        position: CGPoint(x: size.width/2, y: size.height/2),
+                        onDismiss: {
+                            withAnimation(.spring()) {
+                                showingDetail = false
+                                selectedSession = nil
+                            }
+                        }
+                    )
+                }
+            }
+        )
+    }
+    
+    private func calculatePoints(
+        for valueCalculation: (SavedPracticeSession) -> Double,
+        sessions: [SavedPracticeSession],
+        in size: CGSize,
+        spacing: CGFloat
+    ) -> [CGPoint] {
+        let values = sessions.map(valueCalculation)
+        guard !values.isEmpty else { return [] }
+        
+        return values.enumerated().map { (index, value) in
+            let reversedIndex = sessions.count - index - 1
+            let x = size.width * 2 - (CGFloat(reversedIndex) * spacing + 15)
+            let y = size.height - (CGFloat(value) / 100.0 * size.height)
+            return CGPoint(x: x, y: y)
+        }
+    }
+}
+
+struct PathLine: View {
+    let points: [CGPoint]
+    let color: Color
+    let isSelected: Bool
+    let onSelect: () -> Void
+    
+    var body: some View {
+        ZStack {
+            Path { path in
+                guard let first = points.first else { return }
+                path.move(to: first)
+                for point in points.dropFirst() {
+                    path.addLine(to: point)
+                }
+            }
+            .stroke(color, lineWidth: isSelected ? 4 : 2)
+            
+            ForEach(points.indices, id: \.self) { index in
+                ZStack {
+                    Circle()
+                        .fill(color)
+                        .frame(width: 6, height: 6)
+                    if isSelected {
+                        // Remove % sign and adjust percentage calculation
+                        Text(String(format: "%.1f", 100 - points[index].y / size.height * 100))
+                            .font(.caption2)
+                            .foregroundColor(color)
+                            .offset(y: -15)
+                    }
+                }
+                .position(points[index])
+            }
+        }
+        .contentShape(Path { path in  // This makes the entire line tappable
+            guard let first = points.first else { return }
+            path.move(to: first)
+            for point in points.dropFirst() {
+                path.addLine(to: point)
+            }
+        })
+        .onTapGesture {
+            onSelect()
+        }
+    }
+    
+    // Helper to access size in PathLine
+    private let size = CGSize(width: 2000, height: 250) // Adjust this to match your chart's size
+}
+
+struct ChartLegendItem: View {
+    let color: Color
+    let label: String
+    
+    var body: some View {
+        HStack(spacing: 4) {
+            Circle()
+                .fill(color)
+                .frame(width: 8, height: 8)
+            Text(label)
+                .font(.caption)
+                .foregroundColor(.primary)
+        }
+    }
+}
+
+// Here's a basic implementation of BagPlacementDetailPopup
+struct BagPlacementDetailPopup: View {
+    let session: SavedPracticeSession
+    let position: CGPoint
+    let onDismiss: () -> Void
+    
+    var body: some View {
+        VStack {
+            Text("Session Details")
+                .font(.headline)
+            Text("Bags In Hole: \(session.totalBagsInHole)")
+            Text("Bags On Board: \(session.bagsOnBoard)")
+            Text("Bags Off Board: \(session.bagsOffBoard)")
+            Button("Close") {
+                onDismiss()
+            }
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(radius: 5)
+        .position(position)
     }
 }

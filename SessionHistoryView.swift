@@ -8,6 +8,9 @@ struct SessionHistoryView: View {
         animation: .default)
     private var sessions: FetchedResults<SavedPracticeSession>
     
+    @State private var selectedSession: SavedPracticeSession?
+    @State private var showingBagTypePicker = false
+    
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yy"
@@ -15,61 +18,114 @@ struct SessionHistoryView: View {
     }()
     
     var body: some View {
-        List {
-            Section(header:
+        ScrollView(.horizontal) {
+            VStack(alignment: .leading) {
+                // HEADER ROW (Locks in column sizes)
                 HStack {
-                    Text("Date")
-                        .frame(width: 70, alignment: .leading)
-                    Text("PPR")
-                        .frame(width: 50, alignment: .center)
-                    Text("InH")
-                        .frame(width: 40, alignment: .center)
-                    Text("OnB")
-                        .frame(width: 40, alignment: .center)
-                    Text("Off")
-                        .frame(width: 40, alignment: .center)
-                    Text("4B")
-                        .frame(width: 40, alignment: .center)
+                    Text("Date").frame(width: 52, alignment: .leading)
+                    Text("PPR").frame(width: 42, alignment: .center).padding(.trailing, 6)
+                    Text("InH").frame(width: 30, alignment: .center).padding(.trailing, 6)
+                    Text("OnB").frame(width: 30, alignment: .center).padding(.trailing, 6)
+                    Text("Off").frame(width: 30, alignment: .center).padding(.trailing, 6)
+                    Text("4B").frame(width: 30, alignment: .center).padding(.trailing, 6)
+                    Text("Bag").frame(width: 90, alignment: .leading)
                 }
                 .font(.caption)
                 .foregroundColor(.secondary)
-            ) {
-                ForEach(sessions, id: \.self) { session in
-                    HStack {
-                        if let sessionDate = session.date {
-                            Text(dateFormatter.string(from: sessionDate))
-                                .frame(width: 70, alignment: .leading)
-                        } else {
-                            Text("No Date")
-                                .frame(width: 70, alignment: .leading)
+                .padding(.horizontal)
+                .background(Color(.systemGray6))
+                
+                Divider()
+                
+                ScrollView {
+                                    LazyVStack(alignment: .leading, spacing: 8) {
+                                        ForEach(sessions, id: \.self) { session in
+                                            SessionRow(session: session)
+                                                .contextMenu {
+                                                    Button("Delete") {
+                                                        deleteSession(session)
+                                                    }
+                                                    Button("Edit Bag Type") {
+                                                        selectedSession = session
+                                                        showingBagTypePicker = true
+                                                    }
+                                                }
+                                        }
+                                    }
+                                    .padding(.horizontal)
+                                }
+                            }
                         }
-                        
-                        Text(String(format: "%.1f", session.pointsPerRound))
-                            .frame(width: 50, alignment: .center)
-                        
-                        let total = session.totalBagsInHole + session.bagsOnBoard + session.bagsOffBoard
-                        
-                        Text(calculatePercentage(session.totalBagsInHole, total: total))
-                            .frame(width: 40, alignment: .center)
-                            .foregroundColor(.green)
-                        
-                        Text(calculatePercentage(session.bagsOnBoard, total: total))
-                            .frame(width: 40, alignment: .center)
-                            .foregroundColor(.blue)
-                        
-                        Text(calculatePercentage(session.bagsOffBoard, total: total))
-                            .frame(width: 40, alignment: .center)
-                            .foregroundColor(.red)
-                        
-                        Text("\(session.fourBaggers)")
-                            .frame(width: 40, alignment: .center)
+                        .navigationTitle("Practice History")
+                        .sheet(item: $selectedSession) { session in
+                            BagTypePickerView(
+                                session: session,
+                                isPresented: $showingBagTypePicker,
+                                viewContext: viewContext
+                            )
+                        }
                     }
-                    .font(.caption)
-                }
-                .onDelete(perform: deleteSessions)
-            }
+    
+    private func deleteSession(_ session: SavedPracticeSession) {
+        viewContext.delete(session)
+        do {
+            try viewContext.save()
+        } catch {
+            print("Error deleting session: \(error)")
         }
-        .navigationTitle("Practice History")
+    }
+}
+
+struct SessionRow: View {
+    let session: SavedPracticeSession
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yy"
+        return formatter
+    }()
+    
+    var body: some View {
+        HStack {
+            if let sessionDate = session.date {
+                Text(dateFormatter.string(from: sessionDate))
+                    .frame(width: 52, alignment: .leading)
+            } else {
+                Text("No Date")
+                    .frame(width: 70, alignment: .leading)
+            }
+            
+            Text(String(format: "%.1f", session.pointsPerRound))
+                .frame(width: 42, alignment: .center)
+                .padding(.trailing, 6)
+            
+            let total = session.totalBagsInHole + session.bagsOnBoard + session.bagsOffBoard
+            
+            Text(calculatePercentage(session.totalBagsInHole, total: total))
+                .frame(width: 30, alignment: .center)
+                .foregroundColor(.green)
+                .padding(.trailing, 6)
+            
+            Text(calculatePercentage(session.bagsOnBoard, total: total))
+                .frame(width: 30, alignment: .center)
+                .foregroundColor(.blue)
+                .padding(.trailing, 6)
+            
+            Text(calculatePercentage(session.bagsOffBoard, total: total))
+                .frame(width: 30, alignment: .center)
+                .foregroundColor(.red)
+                .padding(.trailing, 6)
+            
+            Text("\(session.fourBaggers)")
+                .frame(width: 30, alignment: .center)
+                .padding(.trailing, 6)
+            
+            Text(session.bagType ?? "N/A")
+                .frame(width: 90, alignment: .leading)
+                .foregroundColor(.secondary)
+        }
+        .font(.caption)
+        .frame(height: 25)
     }
     
     private func calculatePercentage(_ value: Int16, total: Int16) -> String {
@@ -77,16 +133,52 @@ struct SessionHistoryView: View {
         let percentage = (Double(value) / Double(total)) * 100
         return String(format: "%.0f%%", percentage)
     }
+}
 
-    private func deleteSessions(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { sessions[$0] }.forEach(viewContext.delete)
-            
-            do {
-                try viewContext.save()
-            } catch {
-                print("Error saving session: \(error)")
+struct BagTypePickerView: View {
+    let session: SavedPracticeSession
+    @Binding var isPresented: Bool
+    let viewContext: NSManagedObjectContext
+    @Environment(\.dismiss) private var dismiss
+    
+    private var bagTypes: [String] {
+        UserDefaults.standard.stringArray(forKey: "CornholeBagTypes") ?? []
+    }
+    
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(bagTypes, id: \.self) { bagType in
+                    HStack {
+                        Text(bagType)
+                        Spacer()
+                        if bagType == session.bagType {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.blue)
+                        }
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        updateBagType(to: bagType)
+                    }
+                }
             }
+            .navigationTitle("Select Bag Type")
+            .navigationBarItems(
+                trailing: Button("Done") {
+                    dismiss()
+                }
+            )
         }
     }
-    } 
+    
+    private func updateBagType(to newType: String) {
+        session.bagType = newType
+        
+        do {
+            try viewContext.save()
+        } catch {
+            print("Error updating bag type: \(error)")
+        }
+    }
+}
