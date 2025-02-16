@@ -84,6 +84,15 @@ struct HomeView: View {
                                     color: .orange
                                 )
                             }
+                            
+                            // Added Help button
+                            NavigationLink(destination: DocumentationView()) {
+                                SimplifiedMenuButton(
+                                    title: "Help",
+                                    icon: "questionmark.circle.fill",
+                                    color: .cyan // Using cyan to stand out, but feel free to change, babe! 😘
+                                )
+                            }
                         }
                         
                         Spacer()

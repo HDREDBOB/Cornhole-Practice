@@ -33,6 +33,7 @@
 		5D569A3F2D5834590020B92F /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D569A3E2D5834480020B92F /* UserDefaults+Extensions.swift */; };
 		5D569A412D58E8C70020B92F /* BagComparisonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D569A402D58E8C00020B92F /* BagComparisonView.swift */; };
 		5D569A472D597C840020B92F /* UserDefaultsManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D569A462D597C700020B92F /* UserDefaultsManagementView.swift */; };
+		5D569A492D6138CD0020B92F /* DocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D569A482D6138C10020B92F /* DocumentsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		5D569A3E2D5834480020B92F /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		5D569A402D58E8C00020B92F /* BagComparisonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagComparisonView.swift; sourceTree = "<group>"; };
 		5D569A462D597C700020B92F /* UserDefaultsManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManagementView.swift; sourceTree = "<group>"; };
+		5D569A482D6138C10020B92F /* DocumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +216,7 @@
 		5D39524B2D5553CB0092C755 /* Cornhole Practice */ = {
 			isa = PBXGroup;
 			children = (
+				5D569A482D6138C10020B92F /* DocumentsView.swift */,
 				5D569A462D597C700020B92F /* UserDefaultsManagementView.swift */,
 				5D569A402D58E8C00020B92F /* BagComparisonView.swift */,
 				5D569A3E2D5834480020B92F /* UserDefaults+Extensions.swift */,
@@ -511,6 +514,7 @@
 				5D39524F2D5553CB0092C755 /* ContentView.swift in Sources */,
 				5D569A412D58E8C70020B92F /* BagComparisonView.swift in Sources */,
 				5D3952842D565A640092C755 /* CornholePracticeApp.swift in Sources */,
+				5D569A492D6138CD0020B92F /* DocumentsView.swift in Sources */,
 				5D39528D2D565BC20092C755 /* CornholePractice.xcdatamodeld in Sources */,
 				5D569A3F2D5834590020B92F /* UserDefaults+Extensions.swift in Sources */,
 				5D39528F2D565BC20092C755 /* SavedPracticeSession+CoreDataProperties.swift in Sources */,
