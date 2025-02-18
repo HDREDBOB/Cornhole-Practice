@@ -8,8 +8,25 @@ struct SessionHistoryView: View {
         animation: .default)
     private var sessions: FetchedResults<SavedPracticeSession>
     
-    @State private var selectedSession: SavedPracticeSession?
-    @State private var showingBagTypePicker = false
+    enum PickerType {
+        case bagType
+        case throwingStyle
+    }
+    
+    // New Identifiable struct to wrap session and picker type
+    struct EditSession: Identifiable {
+        let id: NSManagedObjectID // Unique identifier from Core Data
+        let session: SavedPracticeSession
+        let pickerType: PickerType
+        
+        init(session: SavedPracticeSession, pickerType: PickerType) {
+            self.id = session.objectID
+            self.session = session
+            self.pickerType = pickerType
+        }
+    }
+    
+    @State private var editSession: EditSession? // Updated to use the new struct
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -20,7 +37,6 @@ struct SessionHistoryView: View {
     var body: some View {
         ScrollView(.horizontal) {
             VStack(alignment: .leading) {
-                // HEADER ROW (Locks in column sizes)
                 HStack {
                     Text("Date").frame(width: 52, alignment: .leading)
                     Text("PPR").frame(width: 42, alignment: .center).padding(.trailing, 6)
@@ -29,6 +45,7 @@ struct SessionHistoryView: View {
                     Text("Off").frame(width: 30, alignment: .center).padding(.trailing, 6)
                     Text("4B").frame(width: 30, alignment: .center).padding(.trailing, 6)
                     Text("Bag").frame(width: 90, alignment: .leading)
+                    Text("Style").frame(width: 90, alignment: .leading)
                 }
                 .font(.caption)
                 .foregroundColor(.secondary)
@@ -38,33 +55,36 @@ struct SessionHistoryView: View {
                 Divider()
                 
                 ScrollView {
-                                    LazyVStack(alignment: .leading, spacing: 8) {
-                                        ForEach(sessions, id: \.self) { session in
-                                            SessionRow(session: session)
-                                                .contextMenu {
-                                                    Button("Delete") {
-                                                        deleteSession(session)
-                                                    }
-                                                    Button("Edit Bag Type") {
-                                                        selectedSession = session
-                                                        showingBagTypePicker = true
-                                                    }
-                                                }
-                                        }
+                    LazyVStack(alignment: .leading, spacing: 8) {
+                        ForEach(sessions, id: \.self) { session in
+                            SessionRow(session: session)
+                                .contextMenu {
+                                    Button("Delete") {
+                                        deleteSession(session)
                                     }
-                                    .padding(.horizontal)
+                                    Button("Edit Bag Type") {
+                                        editSession = EditSession(session: session, pickerType: .bagType)
+                                    }
+                                    Button("Edit Throwing Style") {
+                                        editSession = EditSession(session: session, pickerType: .throwingStyle)
+                                    }
                                 }
-                            }
-                        }
-                        .navigationTitle("Practice History")
-                        .sheet(item: $selectedSession) { session in
-                            BagTypePickerView(
-                                session: session,
-                                isPresented: $showingBagTypePicker,
-                                viewContext: viewContext
-                            )
                         }
                     }
+                    .padding(.horizontal)
+                }
+            }
+        }
+        .navigationTitle("Practice History")
+        .sheet(item: $editSession) { editSession in
+            PickerContainerView(
+                session: editSession.session,
+                pickerType: editSession.pickerType,
+                viewContext: viewContext,
+                onDismiss: { self.editSession = nil }
+            )
+        }
+    }
     
     private func deleteSession(_ session: SavedPracticeSession) {
         viewContext.delete(session)
@@ -123,6 +143,10 @@ struct SessionRow: View {
             Text(session.bagType ?? "N/A")
                 .frame(width: 90, alignment: .leading)
                 .foregroundColor(.secondary)
+            
+            Text(session.throwingStyle ?? "N/A")
+                .frame(width: 90, alignment: .leading)
+                .foregroundColor(.secondary)
         }
         .font(.caption)
         .frame(height: 25)
@@ -135,9 +159,33 @@ struct SessionRow: View {
     }
 }
 
+struct PickerContainerView: View {
+    let session: SavedPracticeSession
+    let pickerType: SessionHistoryView.PickerType
+    let viewContext: NSManagedObjectContext
+    let onDismiss: () -> Void
+    
+    var body: some View {
+        switch pickerType {
+        case .bagType:
+            BagTypePickerView(
+                session: session,
+                onDismiss: onDismiss,
+                viewContext: viewContext
+            )
+        case .throwingStyle:
+            ThrowingStylePickerView(
+                session: session,
+                onDismiss: onDismiss,
+                viewContext: viewContext
+            )
+        }
+    }
+}
+
 struct BagTypePickerView: View {
     let session: SavedPracticeSession
-    @Binding var isPresented: Bool
+    let onDismiss: () -> Void
     let viewContext: NSManagedObjectContext
     @Environment(\.dismiss) private var dismiss
     
@@ -166,6 +214,7 @@ struct BagTypePickerView: View {
             .navigationTitle("Select Bag Type")
             .navigationBarItems(
                 trailing: Button("Done") {
+                    onDismiss()
                     dismiss()
                 }
             )
@@ -179,6 +228,55 @@ struct BagTypePickerView: View {
             try viewContext.save()
         } catch {
             print("Error updating bag type: \(error)")
+        }
+    }
+}
+
+struct ThrowingStylePickerView: View {
+    let session: SavedPracticeSession
+    let onDismiss: () -> Void
+    let viewContext: NSManagedObjectContext
+    @Environment(\.dismiss) private var dismiss
+    
+    private var throwingStyles: [String] {
+        UserDefaults.standard.stringArray(forKey: "ThrowingStyles") ?? []
+    }
+    
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(throwingStyles, id: \.self) { style in
+                    HStack {
+                        Text(style)
+                        Spacer()
+                        if style == session.throwingStyle {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.blue)
+                        }
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        updateThrowingStyle(to: style)
+                    }
+                }
+            }
+            .navigationTitle("Select Throwing Style")
+            .navigationBarItems(
+                trailing: Button("Done") {
+                    onDismiss()
+                    dismiss()
+                }
+            )
+        }
+    }
+    
+    private func updateThrowingStyle(to newStyle: String) {
+        session.throwingStyle = newStyle
+        
+        do {
+            try viewContext.save()
+        } catch {
+            print("Error updating throwing style: \(error)")
         }
     }
 }

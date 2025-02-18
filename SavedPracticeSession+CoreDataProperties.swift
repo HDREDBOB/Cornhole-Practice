@@ -24,6 +24,7 @@ extension SavedPracticeSession {
     @NSManaged public var pointsPerRound: Double
     @NSManaged public var totalBagsInHole: Int16
     @NSManaged public var bagType: String?
+    @NSManaged public var throwingStyle: String?
 
 }
 

@@ -13,13 +13,17 @@ class PracticeSessionViewModel: ObservableObject {
     @Published var currentThrow = 1
     @Published var sessionState: SessionState = .inProgress
     @Published var throwHistory: [(round: Int, throwNumber: Int, result: ThrowResult)] = []
-    @Published var defaultBagType: String // Added this to store the default bag type
+    @Published var defaultBagType: String
+    @Published var defaultThrowingStyle: String
     
     let viewContext: NSManagedObjectContext
     
     init(context: NSManagedObjectContext) {
         self.viewContext = context
         self.defaultBagType = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultBagType) ?? "Default"
+        self.defaultThrowingStyle = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultThrowingStyle) ?? "Default"
+        
+        // Move setupNewSession() AFTER all properties are initialized
         setupNewSession()
     }
     
@@ -53,7 +57,7 @@ class PracticeSessionViewModel: ObservableObject {
             currentRound += 1
             
             if currentRound > 10 {
-                sessionState = .inProgress
+                sessionState = .completed // Fixed from .inProgress
             }
         } else {
             currentThrow += 1
@@ -82,7 +86,7 @@ class PracticeSessionViewModel: ObservableObject {
         objectWillChange.send()
     }
     
-    func saveSession(bagType: String) {
+    func saveSession() { // Updated to remove parameters
         let savedSession = SavedPracticeSession(context: viewContext)
         savedSession.iD = UUID()
         savedSession.date = Date()
@@ -90,8 +94,9 @@ class PracticeSessionViewModel: ObservableObject {
         savedSession.totalBagsInHole = Int16(rounds.reduce(0) { $0 + $1.totalInHole })
         savedSession.bagsOnBoard = Int16(rounds.reduce(0) { $0 + $1.totalOnBoard })
         savedSession.bagsOffBoard = Int16(rounds.reduce(0) { $0 + $1.totalMiss })
-        savedSession.bagType = bagType
-        print("Saving session with bag type: \(bagType)")
+        savedSession.bagType = defaultBagType // Use the view model's properties
+        savedSession.throwingStyle = defaultThrowingStyle // Use the view model's properties
+        print("Saving session with bag type: \(defaultBagType)")
         
         let fourBaggerRounds = rounds.filter { round in
             round.bagThrows.count == 4 && round.bagThrows.allSatisfy { $0.result == .inHole }

@@ -1,12 +1,13 @@
-// ContentView.swift
 import SwiftUI
-
+import CoreData
 
 // Constants to centralize configuration
 enum AppConstants {
     enum UserDefaultsKeys {
         static let bagTypes = "CornholeBagTypes"
         static let defaultBagType = "DefaultBagType"
+        static let throwingStyles = "ThrowingStyles"
+        static let defaultThrowingStyle = "DefaultThrowingStyle"
     }
 }
 
@@ -29,11 +30,14 @@ extension View {
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @StateObject private var viewModel: PracticeSessionViewModel
-    @State private var selectedBagType: String = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultBagType) ?? ""
     @State private var toolbarRefresh: Bool = false
     
     private var bagTypes: [String] {
         UserDefaults.standard.stringArray(forKey: AppConstants.UserDefaultsKeys.bagTypes) ?? []
+    }
+    
+    private var throwingStyles: [String] {
+        UserDefaults.standard.stringArray(forKey: AppConstants.UserDefaultsKeys.throwingStyles) ?? []
     }
     
     init() {
@@ -61,6 +65,7 @@ struct ContentView: View {
         .navigationTitle(viewModel.currentRound > 10 ? "Session Summary" : "Practice Session")
         .toolbar { sessionToolbar }
     }
+    
     private var finalReviewView: some View {
         VStack(spacing: 20) {
             PPRCard(ppr: viewModel.currentPPR)
@@ -74,7 +79,7 @@ struct ContentView: View {
                     }
                 }
                 
-                Button(action: { viewModel.saveSession(bagType: defaultBagType) }) {
+                Button(action: { viewModel.saveSession() }) {
                     HStack {
                         Image(systemName: "square.and.arrow.down")
                         Text("Save")
@@ -106,33 +111,57 @@ struct ContentView: View {
                 .fontWeight(.bold)
             
             bagSelectionView
+            throwingStyleSelectionView // Added throwing style selection
             
             startSessionButton
         }
     }
     
     private var bagSelectionView: some View {
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Default Bag:")
-                    .font(.headline)
-                
-                Picker("Default Bag", selection: $selectedBagType) {
-                    ForEach(bagTypes, id: \.self) { bagType in
-                        Text(bagType).tag(bagType)
-                    }
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Default Bag:")
+                .font(.headline)
+            
+            Picker("Default Bag", selection: $viewModel.defaultBagType) {
+                ForEach(bagTypes, id: \.self) { bagType in
+                    Text(bagType).tag(bagType)
                 }
-                .onChange(of: selectedBagType) { oldValue, newValue in
-                    UserDefaults.standard.set(newValue, forKey: AppConstants.UserDefaultsKeys.defaultBagType)
-                    toolbarRefresh.toggle()  // Add this line
-                }
-                .pickerStyle(MenuPickerStyle())
-                .padding(.vertical, 8)
             }
-            .blueSoftBackground()
-            .onAppear {
-                selectedBagType = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultBagType) ?? ""
+            .onChange(of: viewModel.defaultBagType) { oldValue, newValue in
+                UserDefaults.standard.set(newValue, forKey: AppConstants.UserDefaultsKeys.defaultBagType)
+                toolbarRefresh.toggle()
             }
+            .pickerStyle(MenuPickerStyle())
+            .padding(.vertical, 8)
         }
+        .blueSoftBackground()
+        .onAppear {
+            viewModel.defaultBagType = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultBagType) ?? ""
+        }
+    }
+    
+    private var throwingStyleSelectionView: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Default Style:")
+                .font(.headline)
+            
+            Picker("Default Style", selection: $viewModel.defaultThrowingStyle) {
+                ForEach(throwingStyles, id: \.self) { style in
+                    Text(style).tag(style)
+                }
+            }
+            .onChange(of: viewModel.defaultThrowingStyle) { oldValue, newValue in
+                UserDefaults.standard.set(newValue, forKey: AppConstants.UserDefaultsKeys.defaultThrowingStyle)
+                toolbarRefresh.toggle()
+            }
+            .pickerStyle(MenuPickerStyle())
+            .padding(.vertical, 8)
+        }
+        .blueSoftBackground()
+        .onAppear {
+            viewModel.defaultThrowingStyle = UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultThrowingStyle) ?? ""
+        }
+    }
     
     private var startSessionButton: some View {
         Button(action: {
@@ -173,36 +202,31 @@ struct ContentView: View {
     
     private var completedSessionView: some View {
         SessionCompleteButtons(
-            onSave: { bagType in
-                viewModel.saveSession(bagType: defaultBagType)
-            },
-            onDiscard: { viewModel.setupNewSession() },
-            bagType: defaultBagType
+            onSave: { viewModel.saveSession() },
+            onDiscard: { viewModel.setupNewSession() }
         )
     }
     
-    private var defaultBagType: String {
-        UserDefaults.standard.string(forKey: AppConstants.UserDefaultsKeys.defaultBagType) ?? "No Default Bags Selected"
-    }
-    
     private var sessionToolbar: some ToolbarContent {
-            ToolbarItem(placement: .principal) {
-                VStack(spacing: 4) {
-                    Text(viewModel.currentRound > 10 ? "Session Summary" : "Practice Session")
-                        .font(.headline)
-                    
-                    Text(defaultBagType)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.blue)
-                        .padding(4)
-                        .background(Color.blue.opacity(0.1))
-                        .cornerRadius(5)
-                }
-                .id(toolbarRefresh)  // Add this line
+        ToolbarItem(placement: .principal) {
+            VStack(spacing: 4) {
+                Text(viewModel.currentRound > 10 ? "Session Summary" : "Practice Session")
+                    .font(.headline)
+                
+                Text("Bag: \(viewModel.defaultBagType)")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.blue)
+                
+                Text("Style: \(viewModel.defaultThrowingStyle)")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.green)
             }
+            .id(toolbarRefresh)
         }
     }
+}
 
 // Existing other structs (PPRCard, RoundTracker, etc.) remain the same
 
@@ -227,7 +251,7 @@ struct RoundTracker: View {
     let currentRound: Int
     let currentThrow: Int
     let onThrow: (ThrowResult) -> Void
-    let onUndo: () -> Void  // Add this line
+    let onUndo: () -> Void
     
     var body: some View {
         VStack(spacing: 16) {
@@ -267,6 +291,7 @@ struct RoundTracker: View {
         .shadow(radius: 2)
     }
 }
+
 struct ThrowButton: View {
     let title: String
     let color: Color
@@ -333,6 +358,7 @@ struct RoundsSummary: View {
         .listStyle(PlainListStyle())
     }
 }
+
 struct StatView: View {
     let label: String
     let value: Int
@@ -348,9 +374,8 @@ struct StatView: View {
 }
 
 struct SessionCompleteButtons: View {
-    let onSave: (String) -> Void
+    let onSave: () -> Void
     let onDiscard: () -> Void
-    let bagType: String  // Now we pass in the selected bag type
     
     var body: some View {
         VStack(spacing: 16) {
@@ -359,7 +384,7 @@ struct SessionCompleteButtons: View {
                 .padding(.bottom)
             
             HStack(spacing: 20) {
-                Button(action: { onSave(bagType) }) {
+                Button(action: onSave) {
                     HStack {
                         Image(systemName: "square.and.arrow.down")
                         Text("Save Session")
@@ -390,6 +415,7 @@ struct SessionCompleteButtons: View {
         .shadow(radius: 2)
     }
 }
+
 // Model.swift
 struct PracticeSession: Codable, Identifiable {
     let id: UUID
