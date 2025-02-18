@@ -51,18 +51,16 @@ struct ContentView: View {
             case .ready:
                 readySessionView
             case .inProgress:
-                if viewModel.currentRound > 10 {
-                    finalReviewView
-                        .navigationTitle("Session Summary")
-                } else {
-                    inProgressSessionView
-                }
+                inProgressSessionView
+            case .review:
+                finalReviewView
+                    .navigationTitle("Session Summary")
             case .completed:
                 completedSessionView
             }
         }
         .padding()
-        .navigationTitle(viewModel.currentRound > 10 ? "Session Summary" : "Practice Session")
+        .navigationTitle(viewModel.sessionState == .review ? "Session Summary" : "Practice Session")
         .toolbar { sessionToolbar }
     }
     

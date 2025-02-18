@@ -5,6 +5,7 @@ class PracticeSessionViewModel: ObservableObject {
     enum SessionState {
         case inProgress
         case completed
+        case review
         case ready
     }
     
@@ -57,7 +58,7 @@ class PracticeSessionViewModel: ObservableObject {
             currentRound += 1
             
             if currentRound > 10 {
-                sessionState = .completed // Fixed from .inProgress
+                sessionState = .review // Fixed from .inProgress
             }
         } else {
             currentThrow += 1
@@ -79,7 +80,7 @@ class PracticeSessionViewModel: ObservableObject {
         currentRound = lastThrow.round
         currentThrow = lastThrow.throwNumber
         
-        if sessionState == .completed {
+        if sessionState == .review {
             sessionState = .inProgress
         }
         
